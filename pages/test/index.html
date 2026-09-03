@@ -111,7 +111,7 @@
     try {
       const formData = new FormData(form);
       // Cloudflare Pages Functions の配置場所に合わせてパスを調整してください
-      const res = await fetch('/functions/api/message', {
+      const res = await fetch('/api/message', {
         method: 'POST',
         body: formData,
       });
