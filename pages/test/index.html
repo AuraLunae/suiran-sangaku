@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
@@ -104,393 +103,92 @@
     text-align: left;
   }
 
-  #debug {
-    margin-top: 12px;
-    padding: 12px;
-    background: #f6f6f6;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    color: #555;
-    font-size: 13px;
-    line-height: 1.6;
-    white-space: pre-wrap;
-    word-break: break-word;
-    text-align: left;
-  }
-
   .required {
     color: #d1242f;
   }
 </style>
-
 </head>
 
 <body>
 
 <div class="card">
-
   <h1>お問い合わせフォーム</h1>
 
   <form id="contactForm">
+    <label for="name">お名前 <span class="required">*</span></label>
+    <input type="text" id="name" name="name" required>
 
-```
-<label for="name">
-  お名前 <span class="required">*</span>
-</label>
+    <label for="email">メールアドレス <span class="required">*</span></label>
+    <input type="email" id="email" name="email" required>
 
-<input
-  type="text"
-  id="name"
-  name="name"
-  required
->
+    <label for="subject">件名</label>
+    <input type="text" id="subject" name="subject">
 
-<label for="email">
-  メールアドレス <span class="required">*</span>
-</label>
+    <label for="message">お問い合わせ内容 <span class="required">*</span></label>
+    <textarea id="message" name="message" required></textarea>
 
-<input
-  type="email"
-  id="email"
-  name="email"
-  required
->
+    <button type="submit" id="submitBtn">送信する</button>
 
-<label for="subject">
-  件名
-</label>
-
-<input
-  type="text"
-  id="subject"
-  name="subject"
->
-
-<label for="message">
-  お問い合わせ内容 <span class="required">*</span>
-</label>
-
-<textarea
-  id="message"
-  name="message"
-  required
-></textarea>
-
-<button
-  type="submit"
-  id="submitBtn"
->
-  送信する
-</button>
-
-<div id="status"></div>
-```
-
+    <div id="status"></div>
   </form>
-
 </div>
 
 <script>
 const form = document.getElementById("contactForm");
 const statusEl = document.getElementById("status");
 const btn = document.getElementById("submitBtn");
+const API_URL = "/api/message";
 
-function showError(title, details = "") {
-  statusEl.className = "error";
+function showStatus(message, isError) {
+  statusEl.textContent = message;
+  statusEl.className = isError ? "error" : "success";
   statusEl.style.display = "block";
-
-  statusEl.textContent =
-    title +
-    (details ? "\n\n" + details : "");
-}
-
-function showDebug(text) {
-  const oldDebug = document.getElementById("debug");
-
-  if (oldDebug) {
-    oldDebug.remove();
-  }
-
-  const debug = document.createElement("div");
-
-  debug.id = "debug";
-  debug.textContent = text;
-
-  statusEl.insertAdjacentElement("afterend", debug);
 }
 
 form.addEventListener("submit", async (e) => {
-
   e.preventDefault();
 
   btn.disabled = true;
   btn.textContent = "送信中...";
-
   statusEl.style.display = "none";
 
-  const oldDebug = document.getElementById("debug");
-
-  if (oldDebug) {
-    oldDebug.remove();
-  }
-
-  const apiUrl = "/api/message";
-
-  console.log("[1] API URL:", apiUrl);
-
   try {
-
-    /*
-     * STEP 1
-     * FormDataを作成
-     */
-
-    console.log("[1] FormDataを作成します");
-
     const formData = new FormData(form);
-
-    console.log("[1] FormData作成成功");
-
-
-    /*
-     * STEP 2
-     * fetch開始
-     */
-
-    console.log("[2] fetch開始:", apiUrl);
-
-    let res;
-
-    try {
-
-      res = await fetch(apiUrl, {
-        method: "POST",
-        body: formData
-      });
-
-    } catch (fetchError) {
-
-      console.error("[2] fetch失敗:", fetchError);
-
-      showError(
-        "【STEP 2】fetch() の開始に失敗しました",
-        [
-          "API URL:",
-          location.origin + apiUrl,
-          "",
-          "エラー:",
-          fetchError?.message || String(fetchError),
-          "",
-          "エラーの種類:",
-          fetchError?.name || "不明",
-          "",
-          "現在のページ:",
-          location.href
-        ].join("\n")
-      );
-
-      return;
-    }
-
-    console.log("[2] fetch成功");
-    console.log("[2] HTTP Status:", res.status);
-    console.log("[2] Response URL:", res.url);
-
-
-    /*
-     * STEP 3
-     * レスポンス本文を取得
-     */
-
-    let responseText = "";
-
-    try {
-
-      responseText = await res.text();
-
-    } catch (bodyError) {
-
-      console.error(
-        "[3] レスポンス本文取得失敗:",
-        bodyError
-      );
-
-      showError(
-        "【STEP 3】サーバーからのレスポンスを読めませんでした",
-        [
-          "HTTP Status:",
-          res.status,
-          "",
-          "URL:",
-          res.url,
-          "",
-          "エラー:",
-          bodyError?.message || String(bodyError)
-        ].join("\n")
-      );
-
-      return;
-    }
-
-    console.log("[3] Response body:", responseText);
-
-
-    /*
-     * STEP 4
-     * JSON解析
-     */
+    const res = await fetch(API_URL, {
+      method: "POST",
+      body: formData
+    });
 
     let data = null;
-
+    const responseText = await res.text();
     if (responseText.trim() !== "") {
-
       try {
-
         data = JSON.parse(responseText);
-
-        console.log("[4] JSON解析成功:", data);
-
-      } catch (jsonError) {
-
-        console.error(
-          "[4] JSON解析失敗:",
-          jsonError
-        );
-
-        showError(
-          "【STEP 4】サーバーの返事がJSONではありません",
-          [
-            "HTTP Status:",
-            res.status,
-            "",
-            "Response URL:",
-            res.url,
-            "",
-            "JSON解析エラー:",
-            jsonError?.message || String(jsonError),
-            "",
-            "サーバーから返ってきた内容:",
-            responseText.substring(0, 3000)
-          ].join("\n")
-        );
-
-        return;
+      } catch {
+        throw new Error("サーバーからの応答を読み取れませんでした。");
       }
-
-    } else {
-
-      console.warn("[4] Response bodyが空です");
-
     }
-
-
-    /*
-     * STEP 5
-     * HTTPステータス確認
-     */
 
     if (!res.ok) {
-
-      console.error("[5] HTTPエラー");
-      console.error("status:", res.status);
-      console.error("data:", data);
-
-      showError(
-        "【STEP 5】サーバーがエラーを返しました",
-        [
-          "HTTP Status:",
-          res.status,
-          "",
-          "API URL:",
-          res.url,
-          "",
-          "Status Text:",
-          res.statusText || "(なし)",
-          "",
-          "サーバーからの返答:",
-          data
-            ? JSON.stringify(data, null, 2)
-            : responseText || "(空)"
-        ].join("\n")
+      throw new Error(
+        (data && data.message) || "送信に失敗しました。時間をおいて再度お試しください。"
       );
-
-      return;
     }
 
-
-    /*
-     * STEP 6
-     * 成功
-     */
-
-    console.log("[6] 送信成功:", data);
-
-    statusEl.textContent =
-      "お問い合わせを送信しました。ありがとうございます。";
-
-    statusEl.className = "success";
-    statusEl.style.display = "block";
-
+    showStatus("お問い合わせを送信しました。ありがとうございます。", false);
     form.reset();
 
-    showDebug(
-      [
-        "【送信成功】",
-        "",
-        "API URL:",
-        res.url,
-        "",
-        "HTTP Status:",
-        res.status,
-        "",
-        "サーバーからの返答:",
-        data
-          ? JSON.stringify(data, null, 2)
-          : "(なし)"
-      ].join("\n")
-    );
-
   } catch (err) {
-
-    /*
-     * 想定外のエラー
-     */
-
-    console.error("[UNKNOWN ERROR]", err);
-
-    showError(
-      "【UNKNOWN】予期しないエラーが発生しました",
-      [
-        "エラー:",
-        err?.message || String(err),
-        "",
-        "エラーの種類:",
-        err?.name || "不明",
-        "",
-        "現在のページ:",
-        location.href,
-        "",
-        "API URL:",
-        location.origin + apiUrl,
-        "",
-        "スタック:",
-        err?.stack || "(なし)"
-      ].join("\n")
+    console.error("お問い合わせ送信エラー:", err);
+    showStatus(
+      err.message || "通信エラーが発生しました。時間をおいて再度お試しください。",
+      true
     );
 
   } finally {
-
-    /*
-     * STEP 7
-     * ボタンを元に戻す
-     */
-
     btn.disabled = false;
     btn.textContent = "送信する";
-
-    console.log("[7] 処理終了");
   }
-
 });
 </script>
 
