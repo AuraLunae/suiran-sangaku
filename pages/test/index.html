@@ -5,462 +5,492 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>お問い合わせ</title>
+
 <style>
-  * { box-sizing: border-box; }
+  * {
+    box-sizing: border-box;
+  }
 
-body {
-font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN",
-"Hiragino Sans", Meiryo, sans-serif;
-background: #f4f5f7;
-margin: 0;
-padding: 40px 16px;
-color: #222;
-}
+  body {
+    font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN",
+      "Hiragino Sans", Meiryo, sans-serif;
+    background: #f4f5f7;
+    margin: 0;
+    padding: 40px 16px;
+    color: #222;
+  }
 
-.card {
-max-width: 480px;
-margin: 0 auto;
-background: #fff;
-border-radius: 12px;
-padding: 32px;
-box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-}
+  .card {
+    max-width: 480px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 12px;
+    padding: 32px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  }
 
-h1 {
-font-size: 22px;
-margin: 0 0 24px;
-text-align: center;
-}
+  h1 {
+    font-size: 22px;
+    margin: 0 0 24px;
+    text-align: center;
+  }
 
-label {
-display: block;
-font-size: 14px;
-font-weight: 600;
-margin-bottom: 6px;
-margin-top: 16px;
-}
+  label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    margin-top: 16px;
+  }
 
-input, textarea {
-width: 100%;
-padding: 10px 12px;
-border: 1px solid #d7d9de;
-border-radius: 8px;
-font-size: 15px;
-font-family: inherit;
-}
+  input,
+  textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d7d9de;
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: inherit;
+  }
 
-input:focus, textarea:focus {
-outline: none;
-border-color: #4a7dff;
-}
+  input:focus,
+  textarea:focus {
+    outline: none;
+    border-color: #4a7dff;
+  }
 
-textarea {
-resize: vertical;
-min-height: 120px;
-}
+  textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
 
-button {
-width: 100%;
-margin-top: 24px;
-padding: 12px;
-background: #4a7dff;
-color: #fff;
-border: none;
-border-radius: 8px;
-font-size: 16px;
-font-weight: 600;
-cursor: pointer;
-}
+  button {
+    width: 100%;
+    margin-top: 24px;
+    padding: 12px;
+    background: #4a7dff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+  }
 
-button:disabled {
-opacity: 0.6;
-cursor: default;
-}
+  button:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
 
-#status {
-margin-top: 16px;
-font-size: 14px;
-line-height: 1.6;
-display: none;
-white-space: pre-wrap;
-word-break: break-word;
-}
+  #status {
+    margin-top: 16px;
+    font-size: 14px;
+    line-height: 1.6;
+    display: none;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
 
-#status.success {
-color: #1a7f37;
-}
+  #status.success {
+    color: #1a7f37;
+  }
 
-#status.error {
-color: #d1242f;
-background: #fff0f0;
-border: 1px solid #f0b5b5;
-padding: 12px;
-border-radius: 8px;
-text-align: left;
-}
+  #status.error {
+    color: #d1242f;
+    background: #fff0f0;
+    border: 1px solid #f0b5b5;
+    padding: 12px;
+    border-radius: 8px;
+    text-align: left;
+  }
 
-#status.debug {
-color: #555;
-background: #f6f6f6;
-border: 1px solid #ddd;
-padding: 12px;
-border-radius: 8px;
-text-align: left;
-margin-top: 12px;
-}
+  #debug {
+    margin-top: 12px;
+    padding: 12px;
+    background: #f6f6f6;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    color: #555;
+    font-size: 13px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-break: break-word;
+    text-align: left;
+  }
 
-.required {
-color: #d1242f;
-} </style>
+  .required {
+    color: #d1242f;
+  }
+</style>
 
 </head>
 
 <body>
-  <div class="card">
-    <h1>お問い合わせフォーム</h1>
+
+<div class="card">
+
+  <h1>お問い合わせフォーム</h1>
+
+  <form id="contactForm">
 
 ```
-<form id="contactForm">
-  <label for="name">
-    お名前 <span class="required">*</span>
-  </label>
-  <input type="text" id="name" name="name" required>
+<label for="name">
+  お名前 <span class="required">*</span>
+</label>
 
-  <label for="email">
-    メールアドレス <span class="required">*</span>
-  </label>
-  <input type="email" id="email" name="email" required>
+<input
+  type="text"
+  id="name"
+  name="name"
+  required
+>
 
-  <label for="subject">
-    件名
-  </label>
-  <input type="text" id="subject" name="subject">
+<label for="email">
+  メールアドレス <span class="required">*</span>
+</label>
 
-  <label for="message">
-    お問い合わせ内容 <span class="required">*</span>
-  </label>
-  <textarea id="message" name="message" required></textarea>
+<input
+  type="email"
+  id="email"
+  name="email"
+  required
+>
 
-  <button type="submit" id="submitBtn">
-    送信する
-  </button>
+<label for="subject">
+  件名
+</label>
 
-  <div id="status"></div>
-</form>
+<input
+  type="text"
+  id="subject"
+  name="subject"
+>
+
+<label for="message">
+  お問い合わせ内容 <span class="required">*</span>
+</label>
+
+<textarea
+  id="message"
+  name="message"
+  required
+></textarea>
+
+<button
+  type="submit"
+  id="submitBtn"
+>
+  送信する
+</button>
+
+<div id="status"></div>
 ```
 
-  </div>
+  </form>
+
+</div>
 
 <script>
-const form = document.getElementById('contactForm');
-const statusEl = document.getElementById('status');
-const btn = document.getElementById('submitBtn');
+const form = document.getElementById("contactForm");
+const statusEl = document.getElementById("status");
+const btn = document.getElementById("submitBtn");
 
-/*
- * エラー表示用
- */
-function showError(title, details = '') {
-  statusEl.className = 'error';
-  statusEl.style.display = 'block';
+function showError(title, details = "") {
+  statusEl.className = "error";
+  statusEl.style.display = "block";
 
   statusEl.textContent =
     title +
-    (details ? '\n\n' + details : '');
+    (details ? "\n\n" + details : "");
 }
 
-/*
- * デバッグ情報を表示
- */
 function showDebug(text) {
-  const debug = document.createElement('div');
-  debug.id = 'debug';
-  debug.className = 'debug';
-  debug.textContent = text;
+  const oldDebug = document.getElementById("debug");
 
-  const oldDebug = document.getElementById('debug');
   if (oldDebug) {
     oldDebug.remove();
   }
 
-  statusEl.insertAdjacentElement('afterend', debug);
+  const debug = document.createElement("div");
+
+  debug.id = "debug";
+  debug.textContent = text;
+
+  statusEl.insertAdjacentElement("afterend", debug);
 }
 
-/*
- * フォーム送信
- */
-form.addEventListener('submit', async (e) => {
+form.addEventListener("submit", async (e) => {
+
   e.preventDefault();
 
   btn.disabled = true;
-  btn.textContent = '送信中...';
+  btn.textContent = "送信中...";
 
-  statusEl.style.display = 'none';
+  statusEl.style.display = "none";
 
-  const oldDebug = document.getElementById('debug');
+  const oldDebug = document.getElementById("debug");
+
   if (oldDebug) {
     oldDebug.remove();
   }
 
-  /*
-   * ============================
-   * STEP 1
-   * ============================
-   */
-  const apiUrl = '/api/message';
+  const apiUrl = "/api/message";
 
-  console.log('[1] API URL:', apiUrl);
+  console.log("[1] API URL:", apiUrl);
 
   try {
 
     /*
-     * ============================
-     * STEP 2
-     * FormData作成
-     * ============================
+     * STEP 1
+     * FormDataを作成
      */
-    console.log('[2] FormDataを作成します');
+
+    console.log("[1] FormDataを作成します");
 
     const formData = new FormData(form);
 
-    console.log('[2] FormData OK');
+    console.log("[1] FormData作成成功");
+
 
     /*
-     * ============================
-     * STEP 3
+     * STEP 2
      * fetch開始
-     * ============================
      */
-    console.log('[3] fetch開始:', apiUrl);
+
+    console.log("[2] fetch開始:", apiUrl);
 
     let res;
 
     try {
+
       res = await fetch(apiUrl, {
-        method: 'POST',
+        method: "POST",
         body: formData
       });
+
     } catch (fetchError) {
 
-      /*
-       * fetchそのものが失敗
-       */
-      console.error('[3] fetch失敗:', fetchError);
+      console.error("[2] fetch失敗:", fetchError);
 
       showError(
-        '【STEP 3】fetch() の開始に失敗しました',
+        "【STEP 2】fetch() の開始に失敗しました",
         [
-          'API URL:',
+          "API URL:",
           location.origin + apiUrl,
-          '',
-          'エラー:',
+          "",
+          "エラー:",
           fetchError?.message || String(fetchError),
-          '',
-          'エラーの種類:',
-          fetchError?.name || '不明',
-          '',
-          '現在のページ:',
+          "",
+          "エラーの種類:",
+          fetchError?.name || "不明",
+          "",
+          "現在のページ:",
           location.href
-        ].join('\n')
+        ].join("\n")
       );
 
       return;
     }
 
-    console.log('[3] fetch成功');
-    console.log('[3] HTTP status:', res.status);
-    console.log('[3] URL:', res.url);
+    console.log("[2] fetch成功");
+    console.log("[2] HTTP Status:", res.status);
+    console.log("[2] Response URL:", res.url);
+
 
     /*
-     * ============================
-     * STEP 4
-     * レスポンス本文取得
-     * ============================
+     * STEP 3
+     * レスポンス本文を取得
      */
-    let responseText = '';
+
+    let responseText = "";
 
     try {
+
       responseText = await res.text();
+
     } catch (bodyError) {
 
-      console.error('[4] レスポンス本文取得失敗:', bodyError);
+      console.error(
+        "[3] レスポンス本文取得失敗:",
+        bodyError
+      );
 
       showError(
-        '【STEP 4】サーバーからのレスポンスを読めませんでした',
+        "【STEP 3】サーバーからのレスポンスを読めませんでした",
         [
-          'HTTP Status:',
+          "HTTP Status:",
           res.status,
-          '',
-          'URL:',
+          "",
+          "URL:",
           res.url,
-          '',
-          'エラー:',
+          "",
+          "エラー:",
           bodyError?.message || String(bodyError)
-        ].join('\n')
+        ].join("\n")
       );
 
       return;
     }
 
-    console.log('[4] Response body:', responseText);
+    console.log("[3] Response body:", responseText);
+
 
     /*
-     * ============================
-     * STEP 5
+     * STEP 4
      * JSON解析
-     * ============================
      */
+
     let data = null;
 
-    if (responseText.trim() !== '') {
+    if (responseText.trim() !== "") {
+
       try {
+
         data = JSON.parse(responseText);
-        console.log('[5] JSON解析成功:', data);
+
+        console.log("[4] JSON解析成功:", data);
+
       } catch (jsonError) {
 
-        /*
-         * JSONではない場合
-         *
-         * 例えば
-         * 404ページ
-         * Cloudflareのエラーページ
-         * HTML
-         * など
-         */
-
-        console.error('[5] JSON解析失敗:', jsonError);
+        console.error(
+          "[4] JSON解析失敗:",
+          jsonError
+        );
 
         showError(
-          '【STEP 5】サーバーの返事がJSONではありません',
+          "【STEP 4】サーバーの返事がJSONではありません",
           [
-            'HTTP Status:',
+            "HTTP Status:",
             res.status,
-            '',
-            'Response URL:',
+            "",
+            "Response URL:",
             res.url,
-            '',
-            'JSON解析エラー:',
+            "",
+            "JSON解析エラー:",
             jsonError?.message || String(jsonError),
-            '',
-            'サーバーから返ってきた内容:',
+            "",
+            "サーバーから返ってきた内容:",
             responseText.substring(0, 3000)
-          ].join('\n')
+          ].join("\n")
         );
 
         return;
       }
+
     } else {
-      console.warn('[5] Response bodyが空です');
+
+      console.warn("[4] Response bodyが空です");
+
     }
 
+
     /*
-     * ============================
-     * STEP 6
-     * HTTPエラー確認
-     * ============================
+     * STEP 5
+     * HTTPステータス確認
      */
+
     if (!res.ok) {
 
-      console.error('[6] HTTPエラー');
-      console.error('status:', res.status);
-      console.error('data:', data);
+      console.error("[5] HTTPエラー");
+      console.error("status:", res.status);
+      console.error("data:", data);
 
       showError(
-        `【STEP 6】サーバーがエラーを返しました（HTTP ${res.status}）`,
+        "【STEP 5】サーバーがエラーを返しました",
         [
-          'API URL:',
-          res.url,
-          '',
-          'HTTP Status:',
+          "HTTP Status:",
           res.status,
-          '',
-          'HTTP Status Text:',
-          res.statusText || '(なし)',
-          '',
-          'サーバーからの返答:',
+          "",
+          "API URL:",
+          res.url,
+          "",
+          "Status Text:",
+          res.statusText || "(なし)",
+          "",
+          "サーバーからの返答:",
           data
             ? JSON.stringify(data, null, 2)
-            : responseText || '(空)'
-        ].join('\n')
+            : responseText || "(空)"
+        ].join("\n")
       );
 
       return;
     }
 
+
     /*
-     * ============================
-     * STEP 7
+     * STEP 6
      * 成功
-     * ============================
      */
-    console.log('[7] 送信成功:', data);
+
+    console.log("[6] 送信成功:", data);
 
     statusEl.textContent =
-      'お問い合わせを送信しました。ありがとうございます。';
+      "お問い合わせを送信しました。ありがとうございます。";
 
-    statusEl.className = 'success';
-    statusEl.style.display = 'block';
+    statusEl.className = "success";
+    statusEl.style.display = "block";
 
     form.reset();
 
     showDebug(
       [
-        '【送信成功】',
-        '',
-        'API URL:',
+        "【送信成功】",
+        "",
+        "API URL:",
         res.url,
-        '',
-        'HTTP Status:',
+        "",
+        "HTTP Status:",
         res.status,
-        '',
-        'サーバーからの返答:',
+        "",
+        "サーバーからの返答:",
         data
           ? JSON.stringify(data, null, 2)
-          : '(なし)'
-      ].join('\n')
+          : "(なし)"
+      ].join("\n")
     );
 
   } catch (err) {
 
     /*
-     * ============================
-     * 想定外エラー
-     * ============================
+     * 想定外のエラー
      */
-    console.error('[UNKNOWN ERROR]', err);
+
+    console.error("[UNKNOWN ERROR]", err);
 
     showError(
-      '【UNKNOWN】予期しないエラーが発生しました',
+      "【UNKNOWN】予期しないエラーが発生しました",
       [
-        'エラー:',
+        "エラー:",
         err?.message || String(err),
-        '',
-        'エラーの種類:',
-        err?.name || '不明',
-        '',
-        '現在のページ:',
+        "",
+        "エラーの種類:",
+        err?.name || "不明",
+        "",
+        "現在のページ:",
         location.href,
-        '',
-        'API URL:',
+        "",
+        "API URL:",
         location.origin + apiUrl,
-        '',
-        'スタック:',
-        err?.stack || '(なし)'
-      ].join('\n')
+        "",
+        "スタック:",
+        err?.stack || "(なし)"
+      ].join("\n")
     );
 
   } finally {
 
     /*
-     * ============================
-     * STEP 8
-     * ボタン復帰
-     * ============================
+     * STEP 7
+     * ボタンを元に戻す
      */
-    btn.disabled = false;
-    btn.textContent = '送信する';
 
-    console.log('[8] 処理終了');
+    btn.disabled = false;
+    btn.textContent = "送信する";
+
+    console.log("[7] 処理終了");
   }
+
 });
 </script>
 
