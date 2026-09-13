@@ -23,3 +23,7 @@
   background: #333;
   transition: all 0.3s;
 }
+
+form {
+  font-size: 25px;
+}
