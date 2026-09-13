@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>テストページ</h1>
+    <form action="/api/message" method="POST">
+        <div>
+            <label for="name">What greeting do you want to say?</label>
+            <input name="name" id="name" value="Hi" />
+        </div>
+        <div>
+            <label for="email">Who do you want to say it to?</label>
+            <input name="email" id="email" value="Mom" />
+        </div>
+        <div>
+            <label for="subject">問い合わせ内容</label>
+            <input name="subject" id="subject" />
+        </div>
+        <div>
+            <label for="message">メッセージ</label>
+            <input name="message" id="message" />
+        </div>
+        <div>
+            <button>Send my greetings</button>
+        </div>
+    </form>
+</body>
+
+</html>
