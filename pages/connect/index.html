@@ -39,20 +39,20 @@
             <h2>お問い合わせ</h2>
             <form action="/api/message" method="POST">
                 <div>
-                    <label for="name">What greeting do you want to say?</label>
-                    <input name="name" id="name" value="お名前" />
+                    <label for="name">お名前</label>
+                    <input name="name" id="name" placeholder="山岳　太郎" />
                 </div>
                 <div>
-                    <label for="email">Who do you want to say it to?</label>
-                    <input name="email" id="email" value="example@example.com" />
+                    <label for="email">メールアドレス</label>
+                    <input name="email" id="email" placeholder="example@example.com" />
                 </div>
                 <div>
-                    <label for="subject">問い合わせ内容</label>
-                    <input name="subject" id="subject" />
+                    <label for="subject">件名</label>
+                    <input name="subject" id="subject" placeholder="山登りの件について" />
                 </div>
                 <div>
-                    <label for="message">メッセージ</label>
-                    <input name="message" id="message" />
+                    <label for="message">お問い合わせ内容</label>
+                    <input name="message" id="message" placeholder="お問い合わせ内容を入力してください" />
                 </div>
                 <div>
                     <button>Send my greetings</button>
