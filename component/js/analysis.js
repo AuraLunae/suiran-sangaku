@@ -1,5 +1,5 @@
 (function () {
-  const WORKER_ENDPOINT = "https://your-worker.your-subdomain.workers.dev/collect";
+  const WORKER_ENDPOINT = "/api/tracker";
 
   function safe(fn, fallback = null) {
     try {
