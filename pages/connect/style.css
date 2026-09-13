@@ -1,4 +1,4 @@
-.button-06 a {
+.submit button {
   font-family: 'Noto Sans JP', serif;
   font-size: 14px;
   letter-spacing: 0.1em;
@@ -18,7 +18,7 @@
   transition: all 0.3s;
 }
 
-.button-06 a:hover {
+.submit button:hover {
   color: #fff;
   background: #333;
   transition: all 0.3s;
