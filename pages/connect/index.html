@@ -1,1 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
 
+<head>
+    <title>翠嵐山岳部　PR</title>
+    <meta name="description" content="翠嵐山岳部は、現在41名（1年17名、2年10名、3年14名）でゆる〜く楽しく安全に活動しています。" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet" />
+    <link href="/style.css" rel="stylesheet" />
+    <link href="/component/css/button.css" rel="stylesheet" />
+    <link href="/component/css/hamburger.css" rel="stylesheet" />
+    <script src="https://unpkg.com/typed.js@3.0.0/dist/typed.umd.js"></script>
+    <script src="/component/js/main.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="/favicon.svg" alt="logo" width="40px" height="40px" />
+            <p>翠嵐山岳部　<br class="sp" /><span id="element1"></span></p>
+            <script>
+                var typed = new Typed("#element1", {
+                    strings: ["PR"],
+                    typeSpeed: 50,
+                });
+            </script>
+        </div>
+        <div id="header"></div>
+    </header>
+    <main>
+        <img class="face-img" src="/img/81-8-1~3-tateyama/2026-8-3.jpeg" alt="" />
+        <div class="connect">
+            <h2>お問い合わせ</h2>
+            <form action="/api/message" method="POST">
+                <div>
+                    <label for="name">What greeting do you want to say?</label>
+                    <input name="name" id="name" value="お名前" />
+                </div>
+                <div>
+                    <label for="email">Who do you want to say it to?</label>
+                    <input name="email" id="email" value="example@example.com" />
+                </div>
+                <div>
+                    <label for="subject">問い合わせ内容</label>
+                    <input name="subject" id="subject" />
+                </div>
+                <div>
+                    <label for="message">メッセージ</label>
+                    <input name="message" id="message" />
+                </div>
+                <div>
+                    <button>Send my greetings</button>
+                </div>
+            </form>
+        </div>
+        <div class="qa">
+            <h2>
+                Ｑ＆Ａ
+                <span class="sub">〜なぜか１年生に聞いてみた〜</span>
+            </h2>
+            <p></p>
+            <div class="q">
+                <span class="big">Ｑ</span>
+                <p>体力に自信がありませんが大丈夫ですか？</p>
+            </div>
+            <div class="a">
+                <span class="big">Ａ</span>
+                <div>
+                    <p>僕も全くありませんが、しっかりと登れています。</p>
+                    <p>
+                        山岳部としても、トレーニングを週１回行うなど、バックアップ体制が整えられているので安心です。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div id="footer"></div>
+    </footer>
+</body>
+
+</html>
