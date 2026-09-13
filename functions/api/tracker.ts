@@ -83,7 +83,11 @@ function buildRecord(serverInfo: any, clientInfo: any) {
 async function saveToSupabase(record: unknown, env: Env) {
   const { SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY } = env;
   if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
-    console.log("Supabaseの環境変数が未設定です");
+    console.log(
+      "Supabaseの環境変数が未設定です:",
+      `SUPABASE_URL=${SUPABASE_URL ? "設定済み" : "未設定"}`,
+      `SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY ? "設定済み" : "未設定"}`
+    );
     return;
   }
 
