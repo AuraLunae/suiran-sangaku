@@ -1,7 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
 
-
-
 interface Env {
     SUPABASE_URL: string;
     SUPABASE_SERVICE_ROLE_KEY: string;
@@ -19,7 +17,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     if (!name || !email || !message){
         return new Response(JSON.stringify({ error: '入力に不備があります'}),{
             status: 400,
-            headers: { 'Content-Type': 'application/json'},
+            headers: { 'Content-Type': 'application/json; charset=utf-8'},
         });
     }
 
@@ -33,31 +31,18 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     if(error) {
         return new Response(JSON.stringify({ error: error.message }),{
             status: 500,
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json; charset=utf-8' },
         });
     }
 
     return new Response(JSON.stringify({ success: true, data }),{
         status: 200,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json; charset=utf-8' },
         });
     }catch (error){
         return new Response(JSON.stringify({ error: 'サーバーエラー'}),{
             status: 500,
-            headers: {'Content-Type': 'application/json'},
+            headers: {'Content-Type': 'application/json; charset=utf-8'},
         });
     }
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
