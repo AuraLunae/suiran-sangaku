@@ -80,6 +80,15 @@ a.db-download:hover {
   background: #333;
 }
 
+a.db-download.is-disabled,
+a.db-download.is-disabled:hover {
+  border-color: #bbb;
+  color: #999;
+  background: none;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 .db-message {
   padding: 30px 10px;
   color: #666;
