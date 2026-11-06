@@ -74,6 +74,34 @@
             });
         }
 
+        function toHref(path) {
+          return (
+            "/private/data/" + path.split("/").map(encodeURIComponent).join("/")
+          );
+        }
+
+        // 濁点・半濁点のある日本語ファイル名は、Mac等で保存すると「そ+゛」のように
+        // 分解された形(NFD)になり、files.json に書いた形(NFC)と別物として
+        // 扱われて404になる。書かれたまま・NFC・NFDの順に試し、最初に見つかった方を使う。
+        function resolveHref(path) {
+          var candidates = [path];
+          if (String.prototype.normalize) {
+            [path.normalize("NFC"), path.normalize("NFD")].forEach(function (p) {
+              if (candidates.indexOf(p) === -1) candidates.push(p);
+            });
+          }
+          var i = 0;
+          function next() {
+            if (i >= candidates.length) return Promise.resolve(null);
+            var cand = candidates[i++];
+            var cname = cand.split("/").pop();
+            return checkExists(toHref(cand), cname).then(function (ok) {
+              return ok ? { href: toHref(cand), name: cname } : next();
+            });
+          }
+          return next();
+        }
+
         function render(files) {
           if (!files.length) {
             message.textContent = "ダウンロードできるファイルはまだありません。";
@@ -84,8 +112,6 @@
             var name = file.path.split("/").pop();
             var dot = name.lastIndexOf(".");
             var ext = dot > 0 ? name.slice(dot + 1) : "file";
-            var href =
-              "/private/data/" + file.path.split("/").map(encodeURIComponent).join("/");
 
             var li = document.createElement("li");
             li.className = "db-item";
@@ -113,10 +139,10 @@
             link.className = "db-download is-disabled";
             link.setAttribute("aria-disabled", "true");
             link.textContent = "確認中…";
-            checkExists(href, name).then(function (ok) {
-              if (ok) {
-                link.href = href;
-                link.setAttribute("download", name);
+            resolveHref(file.path).then(function (found) {
+              if (found) {
+                link.href = found.href;
+                link.setAttribute("download", found.name);
                 link.removeAttribute("aria-disabled");
                 link.className = "db-download";
                 link.textContent = "ダウンロード";
