@@ -1,0 +1,108 @@
+/* データベースページ専用スタイル（共通の /style.css の上に重ねて使う） */
+
+.db-intro {
+  text-align: left;
+  padding: 50px 10% 10px;
+}
+
+.db-list-block {
+  padding: 0 10%;
+}
+
+.db-list-block h2 {
+  text-align: left;
+}
+
+.db-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid #ddd;
+}
+
+.db-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 16px 10px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+.db-ext {
+  flex: 0 0 64px;
+  box-sizing: border-box;
+  padding: 6px 0;
+  border-radius: 6px;
+  background: #79a1b1;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.db-info {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.db-name {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.db-meta {
+  margin: 4px 0 0;
+  color: #666;
+  font-size: 13px;
+}
+
+a.db-download {
+  flex: 0 0 auto;
+  box-sizing: border-box;
+  padding: 10px 24px;
+  border: solid 3px #333;
+  border-radius: 999px;
+  color: #333;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+  transition: all 0.3s;
+}
+
+a.db-download:hover {
+  color: #fff;
+  background: #333;
+}
+
+.db-message {
+  padding: 30px 10px;
+  color: #666;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .db-intro,
+  .db-list-block {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
+  .db-item {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .db-info {
+    flex: 1 1 calc(100% - 90px);
+  }
+
+  a.db-download {
+    flex: 1 1 100%;
+  }
+}
