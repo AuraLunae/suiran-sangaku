@@ -57,6 +57,23 @@
           return d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
         }
 
+        // 実在するファイルか確認する。
+        // 存在しないとサーバーは 404.html 等のHTMLを返し、download属性のせいで
+        // それがファイルとして保存されてしまうため、事前に弾く。
+        function checkExists(href, name) {
+          var isHtml = /\.html?$/i.test(name);
+          return fetch(href, { method: "HEAD", cache: "no-cache" })
+            .then(function (res) {
+              if (!res.ok) return false;
+              var type = (res.headers.get("content-type") || "").toLowerCase();
+              if (!isHtml && type.indexOf("text/html") !== -1) return false;
+              return true;
+            })
+            .catch(function () {
+              return false;
+            });
+        }
+
         function render(files) {
           if (!files.length) {
             message.textContent = "ダウンロードできるファイルはまだありません。";
@@ -93,10 +110,21 @@
             info.appendChild(meta);
 
             var link = document.createElement("a");
-            link.className = "db-download";
-            link.href = href;
-            link.setAttribute("download", name);
-            link.textContent = "ダウンロード";
+            link.className = "db-download is-disabled";
+            link.setAttribute("aria-disabled", "true");
+            link.textContent = "確認中…";
+            checkExists(href, name).then(function (ok) {
+              if (ok) {
+                link.href = href;
+                link.setAttribute("download", name);
+                link.removeAttribute("aria-disabled");
+                link.className = "db-download";
+                link.textContent = "ダウンロード";
+              } else {
+                link.className = "db-download is-disabled";
+                link.textContent = "ファイルが見つかりません";
+              }
+            });
 
             li.appendChild(badge);
             li.appendChild(info);
